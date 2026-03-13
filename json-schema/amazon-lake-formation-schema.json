@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.apievangelist.com/amazon-lake-formation/permission-definition",
+  "title": "Amazon Lake Formation Permission Definition",
+  "description": "Schema defining the structure of an AWS Lake Formation permission grant, including principal, resource, and permission configurations for data lake governance.",
+  "type": "object",
+  "required": [
+    "principal",
+    "resource",
+    "permissions"
+  ],
+  "properties": {
+    "principal": {
+      "$ref": "#/$defs/DataLakePrincipal"
+    },
+    "resource": {
+      "$ref": "#/$defs/Resource"
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "ALL",
+          "SELECT",
+          "ALTER",
+          "DROP",
+          "DELETE",
+          "INSERT",
+          "DESCRIBE",
+          "CREATE_DATABASE",
+          "CREATE_TABLE",
+          "DATA_LOCATION_ACCESS",
+          "CREATE_TAG",
+          "ASSOCIATE"
+        ]
+      },
+      "description": "The permissions granted to the principal."
+    },
+    "permissionsWithGrantOption": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The permissions that the principal can grant to other principals."
+    },
+    "additionalDetails": {
+      "type": "object",
+      "properties": {
+        "resourceShare": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Resource share ARNs for cross-account sharing."
+        }
+      }
+    }
+  },
+  "$defs": {
+    "DataLakePrincipal": {
+      "type": "object",
+      "description": "The Lake Formation principal.",
+      "properties": {
+        "dataLakePrincipalIdentifier": {
+          "type": "string",
+          "description": "An identifier for the Lake Formation principal, such as an IAM ARN."
+        }
+      }
+    },
+    "Resource": {
+      "type": "object",
+      "description": "A structure for the resource in a permission grant.",
+      "properties": {
+        "catalog": {
+          "type": "object",
+          "description": "The identifier for the Data Catalog."
+        },
+        "database": {
+          "type": "object",
+          "properties": {
+            "catalogId": {
+              "type": "string",
+              "description": "The catalog ID of the database."
+            },
+            "name": {
+              "type": "string",
+              "description": "The name of the database."
+            }
+          },
+          "description": "A database resource."
+        },
+        "table": {
+          "type": "object",
+          "properties": {
+            "catalogId": {
+              "type": "string"
+            },
+            "databaseName": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "tableWildcard": {
+              "type": "object"
+            }
+          },
+          "description": "A table resource."
+        },
+        "tableWithColumns": {
+          "type": "object",
+          "properties": {
+            "catalogId": {
+              "type": "string"
+            },
+            "databaseName": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "columnNames": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "columnWildcard": {
+              "type": "object",
+              "properties": {
+                "excludedColumnNames": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "A table with columns resource."
+        },
+        "dataLocation": {
+          "type": "object",
+          "properties": {
+            "catalogId": {
+              "type": "string"
+            },
+            "resourceArn": {
+              "type": "string",
+              "description": "The S3 path ARN of the data location."
+            }
+          },
+          "description": "A data location resource."
+        },
+        "dataCellsFilter": {
+          "type": "object",
+          "properties": {
+            "tableCatalogId": {
+              "type": "string"
+            },
+            "databaseName": {
+              "type": "string"
+            },
+            "tableName": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "description": "A data cell filter resource."
+        },
+        "lfTag": {
+          "type": "object",
+          "properties": {
+            "catalogId": {
+              "type": "string"
+            },
+            "tagKey": {
+              "type": "string"
+            },
+            "tagValues": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "An LF-tag resource."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,162 @@
+openapi: 3.1.0
+info:
+  title: Amazon Lake Formation API
+  description: >-
+    The AWS Lake Formation API enables programmatic management of data lake
+    resources, including registering data locations, configuring permissions
+    and access controls, managing data catalog resources, and governing
+    cross-account data sharing for centralized data lake management.
+  version: '2017-03-31'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/premiumsupport/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-logo:
+    url: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
+servers:
+  - url: https://lakeformation.{region}.amazonaws.com
+    description: AWS Lake Formation regional endpoint
+    variables:
+      region:
+        default: us-east-1
+        description: AWS region
+        enum:
+          - us-east-1
+          - us-east-2
+          - us-west-1
+          - us-west-2
+          - eu-west-1
+          - eu-west-2
+          - eu-west-3
+          - eu-central-1
+          - ap-northeast-1
+          - ap-northeast-2
+          - ap-southeast-1
+          - ap-southeast-2
+          - ap-south-1
+          - sa-east-1
+          - ca-central-1
+security:
+  - sigv4: []
+tags:
+  - name: Permissions
+    description: Operations for managing data lake permissions
+  - name: Resources
+    description: Operations for registering and managing data lake resources
+  - name: Data Catalog
+    description: Operations for managing the data catalog
+  - name: Transactions
+    description: Operations for managing governed table transactions
+  - name: Data Sharing
+    description: Operations for cross-account data sharing
+paths:
+  /GrantPermissions:
+    post:
+      operationId: GrantPermissions
+      summary: Grant data lake permissions
+      description: Grants permissions to the principal to access resources in the data lake.
+      tags:
+        - Permissions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Principal
+                - Resource
+                - Permissions
+              properties:
+                Principal:
+                  type: object
+                Resource:
+                  type: object
+                Permissions:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Permissions granted
+        '400':
+          description: Bad request
+  /RevokePermissions:
+    post:
+      operationId: RevokePermissions
+      summary: Revoke data lake permissions
+      description: Revokes permissions from the principal to access resources in the data lake.
+      tags:
+        - Permissions
+      responses:
+        '200':
+          description: Permissions revoked
+  /ListPermissions:
+    post:
+      operationId: ListPermissions
+      summary: List data lake permissions
+      description: Returns a list of the principal permissions on the resource.
+      tags:
+        - Permissions
+      responses:
+        '200':
+          description: List of permissions
+  /RegisterResource:
+    post:
+      operationId: RegisterResource
+      summary: Register a resource
+      description: Registers the resource as managed by the Data Catalog.
+      tags:
+        - Resources
+      responses:
+        '200':
+          description: Resource registered
+  /DeregisterResource:
+    post:
+      operationId: DeregisterResource
+      summary: Deregister a resource
+      description: Deregisters the resource as managed by the Data Catalog.
+      tags:
+        - Resources
+      responses:
+        '200':
+          description: Resource deregistered
+  /ListResources:
+    post:
+      operationId: ListResources
+      summary: List registered resources
+      description: Lists the resources registered to be managed by the Data Catalog.
+      tags:
+        - Resources
+      responses:
+        '200':
+          description: List of resources
+  /GetDataLakeSettings:
+    post:
+      operationId: GetDataLakeSettings
+      summary: Get data lake settings
+      description: Retrieves the current data lake settings such as data lake admins.
+      tags:
+        - Data Catalog
+      responses:
+        '200':
+          description: Data lake settings
+  /PutDataLakeSettings:
+    post:
+      operationId: PutDataLakeSettings
+      summary: Set data lake settings
+      description: Sets the data lake settings such as data lake admins and default permissions.
+      tags:
+        - Data Catalog
+      responses:
+        '200':
+          description: Settings updated
+components:
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4 authentication
