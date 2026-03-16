@@ -14,7 +14,7 @@ tags:
 - S3
 - AWS
 created: '2024-01-15'
-modified: '2026-03-13'
+modified: '2026-03-16'
 apis:
 - name: Amazon Lake Formation API
   description: The AWS Lake Formation API provides programmatic access to create and manage data lakes, configure data permissions and access controls, register data sources, and manage data catalog resources for centralized data governance.
