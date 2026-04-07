@@ -55,7 +55,7 @@ paths:
   /GrantPermissions:
     post:
       operationId: GrantPermissions
-      summary: Grant data lake permissions
+      summary: Amazon Lake Formation Grant data lake permissions
       description: Grants permissions to the principal to access resources in the data lake.
       tags:
         - Permissions
@@ -86,7 +86,7 @@ paths:
   /RevokePermissions:
     post:
       operationId: RevokePermissions
-      summary: Revoke data lake permissions
+      summary: Amazon Lake Formation Revoke data lake permissions
       description: Revokes permissions from the principal to access resources in the data lake.
       tags:
         - Permissions
@@ -96,7 +96,7 @@ paths:
   /ListPermissions:
     post:
       operationId: ListPermissions
-      summary: List data lake permissions
+      summary: Amazon Lake Formation List data lake permissions
       description: Returns a list of the principal permissions on the resource.
       tags:
         - Permissions
@@ -106,7 +106,7 @@ paths:
   /RegisterResource:
     post:
       operationId: RegisterResource
-      summary: Register a resource
+      summary: Amazon Lake Formation Register a resource
       description: Registers the resource as managed by the Data Catalog.
       tags:
         - Resources
@@ -116,7 +116,7 @@ paths:
   /DeregisterResource:
     post:
       operationId: DeregisterResource
-      summary: Deregister a resource
+      summary: Amazon Lake Formation Deregister a resource
       description: Deregisters the resource as managed by the Data Catalog.
       tags:
         - Resources
@@ -126,7 +126,7 @@ paths:
   /ListResources:
     post:
       operationId: ListResources
-      summary: List registered resources
+      summary: Amazon Lake Formation List registered resources
       description: Lists the resources registered to be managed by the Data Catalog.
       tags:
         - Resources
@@ -136,7 +136,7 @@ paths:
   /GetDataLakeSettings:
     post:
       operationId: GetDataLakeSettings
-      summary: Get data lake settings
+      summary: Amazon Lake Formation Get data lake settings
       description: Retrieves the current data lake settings such as data lake admins.
       tags:
         - Data Catalog
@@ -146,7 +146,7 @@ paths:
   /PutDataLakeSettings:
     post:
       operationId: PutDataLakeSettings
-      summary: Set data lake settings
+      summary: Amazon Lake Formation Set data lake settings
       description: Sets the data lake settings such as data lake admins and default permissions.
       tags:
         - Data Catalog
