@@ -41,16 +41,12 @@ servers:
 security:
   - sigv4: []
 tags:
+  - name: Data Catalog
+    description: Operations for managing the data catalog
   - name: Permissions
     description: Operations for managing data lake permissions
   - name: Resources
     description: Operations for registering and managing data lake resources
-  - name: Data Catalog
-    description: Operations for managing the data catalog
-  - name: Transactions
-    description: Operations for managing governed table transactions
-  - name: Data Sharing
-    description: Operations for cross-account data sharing
 paths:
   /GrantPermissions:
     post:
