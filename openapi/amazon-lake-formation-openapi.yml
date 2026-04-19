@@ -1,12 +1,8 @@
 openapi: 3.1.0
 info:
   title: Amazon Lake Formation API
-  description: >-
-    The AWS Lake Formation API enables programmatic management of data lake
-    resources, including registering data locations, configuring permissions
-    and access controls, managing data catalog resources, and governing
-    cross-account data sharing for centralized data lake management.
-  version: '2017-03-31'
+  description: The Amazon Lake Formation API provides programmatic access to manage Lake Formation resources.
+  version: '2024-01-01'
   contact:
     name: AWS Support
     url: https://aws.amazon.com/premiumsupport/
@@ -16,139 +12,157 @@ info:
   x-logo:
     url: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
 servers:
-  - url: https://lakeformation.{region}.amazonaws.com
-    description: AWS Lake Formation regional endpoint
-    variables:
-      region:
-        default: us-east-1
-        description: AWS region
-        enum:
-          - us-east-1
-          - us-east-2
-          - us-west-1
-          - us-west-2
-          - eu-west-1
-          - eu-west-2
-          - eu-west-3
-          - eu-central-1
-          - ap-northeast-1
-          - ap-northeast-2
-          - ap-southeast-1
-          - ap-southeast-2
-          - ap-south-1
-          - sa-east-1
-          - ca-central-1
+- url: https://lakeformation.us-east-1.amazonaws.com
+  description: Amazon Lake Formation endpoint
 security:
-  - sigv4: []
+- sigv4: []
 tags:
-  - name: Data Catalog
-    description: Operations for managing the data catalog
-  - name: Permissions
-    description: Operations for managing data lake permissions
-  - name: Resources
-    description: Operations for registering and managing data lake resources
+- name: Resources
+  description: Data lake resource management
 paths:
-  /GrantPermissions:
-    post:
-      operationId: GrantPermissions
-      summary: Amazon Lake Formation Grant data lake permissions
-      description: Grants permissions to the principal to access resources in the data lake.
-      tags:
-        - Permissions
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - Principal
-                - Resource
-                - Permissions
-              properties:
-                Principal:
-                  type: object
-                Resource:
-                  type: object
-                Permissions:
-                  type: array
-                  items:
-                    type: string
-      responses:
-        '200':
-          description: Permissions granted
-        '400':
-          description: Bad request
-  /RevokePermissions:
-    post:
-      operationId: RevokePermissions
-      summary: Amazon Lake Formation Revoke data lake permissions
-      description: Revokes permissions from the principal to access resources in the data lake.
-      tags:
-        - Permissions
-      responses:
-        '200':
-          description: Permissions revoked
-  /ListPermissions:
-    post:
-      operationId: ListPermissions
-      summary: Amazon Lake Formation List data lake permissions
-      description: Returns a list of the principal permissions on the resource.
-      tags:
-        - Permissions
-      responses:
-        '200':
-          description: List of permissions
-  /RegisterResource:
+  /resources:
     post:
       operationId: RegisterResource
-      summary: Amazon Lake Formation Register a resource
-      description: Registers the resource as managed by the Data Catalog.
+      summary: Amazon Lake Formation Register Resource
+      description: Registers an Amazon S3 path as a data lake location managed by Lake Formation.
       tags:
-        - Resources
+      - Resources
       responses:
         '200':
-          description: Resource registered
-  /DeregisterResource:
-    post:
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    get:
+      operationId: ListResources
+      summary: Amazon Lake Formation List Resources
+      description: Lists the resources registered as managed by Lake Formation.
+      tags:
+      - Resources
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /resources/{resourceArn}:
+    get:
+      operationId: DescribeResource
+      summary: Amazon Lake Formation Describe Resource
+      description: Retrieves the current data access role for the given resource registered in Lake Formation.
+      tags:
+      - Resources
+      parameters:
+      - name: resourceArn
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The resource ARN.
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
       operationId: DeregisterResource
-      summary: Amazon Lake Formation Deregister a resource
+      summary: Amazon Lake Formation Deregister Resource
       description: Deregisters the resource as managed by the Data Catalog.
       tags:
-        - Resources
+      - Resources
+      parameters:
+      - name: resourceArn
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The resource ARN.
       responses:
         '200':
-          description: Resource deregistered
-  /ListResources:
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /permissions:
     post:
-      operationId: ListResources
-      summary: Amazon Lake Formation List registered resources
-      description: Lists the resources registered to be managed by the Data Catalog.
+      operationId: GrantPermissions
+      summary: Amazon Lake Formation Grant Permissions
+      description: Grants permissions to the principal to access metadata in the Data Catalog and data organized in underlying data storage such as Amazon S3.
       tags:
-        - Resources
+      - Resources
       responses:
         '200':
-          description: List of resources
-  /GetDataLakeSettings:
-    post:
-      operationId: GetDataLakeSettings
-      summary: Amazon Lake Formation Get data lake settings
-      description: Retrieves the current data lake settings such as data lake admins.
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: RevokePermissions
+      summary: Amazon Lake Formation Revoke Permissions
+      description: Revokes permissions to the principal to access metadata in the Data Catalog.
       tags:
-        - Data Catalog
+      - Resources
       responses:
         '200':
-          description: Data lake settings
-  /PutDataLakeSettings:
-    post:
-      operationId: PutDataLakeSettings
-      summary: Amazon Lake Formation Set data lake settings
-      description: Sets the data lake settings such as data lake admins and default permissions.
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    get:
+      operationId: ListPermissions
+      summary: Amazon Lake Formation List Permissions
+      description: Returns a list of the principal permissions on the resource.
       tags:
-        - Data Catalog
+      - Resources
       responses:
         '200':
-          description: Settings updated
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     sigv4:
@@ -156,3 +170,31 @@ components:
       name: Authorization
       in: header
       description: AWS Signature Version 4 authentication
+  schemas:
+    DataLakeResource:
+      type: object
+      description: A resource registered with AWS Lake Formation.
+      properties:
+        ResourceArn:
+          type: string
+          description: The ARN of the resource registered with Lake Formation.
+        RoleArn:
+          type: string
+          description: The IAM role that registered the resource.
+        LastModified:
+          type: string
+          description: The date and time the resource was last modified.
+          format: date-time
+    Permission:
+      type: object
+      description: A Lake Formation permission grant.
+      properties:
+        Principal:
+          type: object
+          description: The principal (IAM user, role, or group) being granted permissions.
+        Resource:
+          type: object
+          description: The resource on which permissions are being granted.
+        Permissions:
+          type: array
+          description: The permissions being granted.

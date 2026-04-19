@@ -1,0 +1,58 @@
+naftiko: 1.0.0-alpha1
+info:
+  label: Amazon Lake Formation Workflow
+  description: Unified workflow capability for Amazon Lake Formation combining resource management and operations.
+  tags:
+  - Amazon Lake Formation
+  - AWS
+  - Workflow
+  created: '2026-04-19'
+  modified: '2026-04-19'
+binds:
+- namespace: env
+  keys:
+    AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
+capability:
+  consumes:
+  - import: lake-formation
+    location: ./shared/lake-formation.yaml
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: lake-formation-api
+    description: REST API for Amazon Lake Formation workflow.
+    resources: []
+  - type: mcp
+    port: 9090
+    namespace: lake-formation-mcp
+    transport: http
+    description: MCP server for Amazon Lake Formation.
+    tools:
+    - name: resources-register-resource
+      description: Registers an Amazon S3 path as a data lake location managed by Lake Formation.
+      hints:
+        readOnly: false
+        idempotent: false
+      call: lake-formation.registerresource
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resources-list-resources
+      description: Lists the resources registered as managed by Lake Formation.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: lake-formation.listresources
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resources-describe-resource
+      description: Retrieves the current data access role for the given resource registered in Lake Formation.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: lake-formation.describeresource
+      outputParameters:
+      - type: object
+        mapping: $.

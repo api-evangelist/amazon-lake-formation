@@ -1,0 +1,76 @@
+vocabulary: 1.0.0
+info:
+  provider: Amazon Lake Formation
+  description: Unified vocabulary for Amazon Lake Formation API operations and capability workflows.
+  created: '2026-04-19'
+  modified: '2026-04-19'
+operational:
+  apis:
+  - namespace: lake-formation
+    version: '2024-01-01'
+    status: active
+  resources:
+  - name: resources
+    api: lake-formation
+    actions:
+    - register resource
+    - list resources
+    - describe resource
+    - deregister resource
+    - grant permissions
+    - revoke permissions
+    - list permissions
+  actions:
+  - name: create
+    http_method: POST
+    pattern: write
+  - name: list
+    http_method: GET
+    pattern: read
+  - name: describe
+    http_method: GET
+    pattern: read
+  - name: update
+    http_method: PUT
+    pattern: write
+  - name: delete
+    http_method: DELETE
+    pattern: destructive
+  authentication:
+    schemes:
+    - type: apikey
+      header: Authorization
+      description: AWS Signature Version 4
+capability:
+  workflows:
+  - name: Amazon Lake Formation Workflow
+    file: capabilities/amazon-lake-formation-workflow.yaml
+    description: Unified workflow for Amazon Lake Formation resource management
+    apis_combined:
+    - lake-formation
+    tool_count: 3
+    personas:
+    - Developer
+    - Administrator
+  personas:
+  - id: developer
+    name: Developer
+    description: Integrates API into applications
+  - id: administrator
+    name: Administrator
+    description: Manages resources and configurations
+crossReference:
+- resource: resources
+  operations:
+  - RegisterResource
+  - ListResources
+  - DescribeResource
+  - DeregisterResource
+  - GrantPermissions
+  - RevokePermissions
+  - ListPermissions
+  workflows:
+  - Amazon Lake Formation Workflow
+  personas:
+  - Developer
+  - Administrator

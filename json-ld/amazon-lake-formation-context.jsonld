@@ -1,154 +1,39 @@
 {
   "@context": {
-    "@vocab": "https://schema.org/",
-    "lf": "https://docs.aws.amazon.com/lake-formation/latest/APIReference/",
-    "aws": "https://aws.amazon.com/",
+    "@version": 1.1,
+    "lakeformation": "https://lakeformation.amazonaws.com/schema/",
     "schema": "https://schema.org/",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
-
-    "Permission": {
-      "@id": "lf:API_ListPermissions",
-      "@context": {
-        "principal": {
-          "@id": "lf:dataLakePrincipal",
-          "@type": "lf:DataLakePrincipal"
-        },
-        "resource": {
-          "@id": "lf:permissionResource",
-          "@type": "lf:Resource"
-        },
-        "permissions": {
-          "@id": "lf:permissions",
-          "@container": "@list"
-        },
-        "permissionsWithGrantOption": {
-          "@id": "lf:permissionsWithGrantOption",
-          "@container": "@list"
-        }
-      }
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "DataLakeResource": "lakeformation:DataLakeResource",
+    "Permission": "lakeformation:Permission",
+    "id": {
+      "@id": "schema:identifier",
+      "@type": "xsd:string"
     },
-
-    "DataLakePrincipal": {
-      "@id": "lf:DataLakePrincipal",
-      "@context": {
-        "dataLakePrincipalIdentifier": {
-          "@id": "schema:identifier",
-          "@type": "xsd:string"
-        }
-      }
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
     },
-
-    "Resource": {
-      "@id": "lf:Resource",
-      "@context": {
-        "database": {
-          "@id": "lf:databaseResource",
-          "@type": "lf:DatabaseResource"
-        },
-        "table": {
-          "@id": "lf:tableResource",
-          "@type": "lf:TableResource"
-        },
-        "tableWithColumns": {
-          "@id": "lf:tableWithColumnsResource",
-          "@type": "lf:TableWithColumnsResource"
-        },
-        "dataLocation": {
-          "@id": "lf:dataLocationResource",
-          "@type": "lf:DataLocationResource"
-        },
-        "lfTag": {
-          "@id": "lf:lfTagResource",
-          "@type": "lf:LFTagResource"
-        }
-      }
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
     },
-
-    "DatabaseResource": {
-      "@id": "lf:DatabaseResource",
-      "@context": {
-        "catalogId": {
-          "@id": "lf:catalogId",
-          "@type": "xsd:string"
-        },
-        "name": {
-          "@id": "schema:name",
-          "@type": "xsd:string"
-        }
-      }
+    "status": {
+      "@id": "lakeformation:status",
+      "@type": "xsd:string"
     },
-
-    "TableResource": {
-      "@id": "lf:TableResource",
-      "@context": {
-        "catalogId": {
-          "@id": "lf:catalogId",
-          "@type": "xsd:string"
-        },
-        "databaseName": {
-          "@id": "lf:databaseName",
-          "@type": "xsd:string"
-        },
-        "name": {
-          "@id": "schema:name",
-          "@type": "xsd:string"
-        }
-      }
+    "arn": {
+      "@id": "lakeformation:arn",
+      "@type": "xsd:string"
     },
-
-    "DataLocationResource": {
-      "@id": "lf:DataLocationResource",
-      "@context": {
-        "catalogId": {
-          "@id": "lf:catalogId",
-          "@type": "xsd:string"
-        },
-        "resourceArn": {
-          "@id": "schema:identifier",
-          "@type": "xsd:string"
-        }
-      }
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
     },
-
-    "LFTag": {
-      "@id": "lf:API_GetLFTag",
-      "@context": {
-        "catalogId": {
-          "@id": "lf:catalogId",
-          "@type": "xsd:string"
-        },
-        "tagKey": {
-          "@id": "schema:name",
-          "@type": "xsd:string"
-        },
-        "tagValues": {
-          "@id": "lf:tagValues",
-          "@container": "@list"
-        }
-      }
-    },
-
-    "DataLakeSettings": {
-      "@id": "lf:API_GetDataLakeSettings",
-      "@context": {
-        "dataLakeAdmins": {
-          "@id": "lf:dataLakeAdmins",
-          "@container": "@list"
-        },
-        "createDatabaseDefaultPermissions": {
-          "@id": "lf:createDatabaseDefaultPermissions",
-          "@container": "@list"
-        },
-        "createTableDefaultPermissions": {
-          "@id": "lf:createTableDefaultPermissions",
-          "@container": "@list"
-        },
-        "trustedResourceOwners": {
-          "@id": "lf:trustedResourceOwners",
-          "@container": "@list"
-        }
-      }
+    "updatedAt": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
     }
   }
 }

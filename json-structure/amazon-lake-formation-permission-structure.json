@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-lake-formation/refs/heads/main/json-structure/amazon-lake-formation-permission-structure.json",
+  "name": "Permission",
+  "description": "A Lake Formation permission grant.",
+  "type": "object",
+  "properties": {
+    "Principal": {
+      "type": "object",
+      "description": "The principal (IAM user, role, or group) being granted permissions."
+    },
+    "Resource": {
+      "type": "object",
+      "description": "The resource on which permissions are being granted."
+    },
+    "Permissions": {
+      "type": "array",
+      "description": "The permissions being granted."
+    }
+  }
+}

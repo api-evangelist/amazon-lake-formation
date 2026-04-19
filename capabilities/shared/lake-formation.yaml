@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha1
+info:
+  label: Amazon Lake Formation
+  description: Amazon Lake Formation API for managing lake formation resources.
+  tags:
+  - Amazon Lake Formation
+  - AWS
+  created: '2026-04-19'
+  modified: '2026-04-19'
+binds:
+- namespace: env
+  keys:
+    AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: lake-formation
+    baseUri: https://lakeformation.us-east-1.amazonaws.com
+    description: Amazon Lake Formation service.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{AWS_ACCESS_KEY_ID}}'
+      placement: header
+    resources:
+    - name: resources
+      path: /resources
+      description: Data lake resource management
+      operations:
+      - name: registerresource
+        method: POST
+        description: Registers an Amazon S3 path as a data lake location managed by Lake Formation.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: listresources
+        method: GET
+        description: Lists the resources registered as managed by Lake Formation.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: describeresource
+        method: GET
+        description: Retrieves the current data access role for the given resource registered in Lake Formation.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8101
+    namespace: lake-formation-rest
+    resources: []
+  - type: mcp
+    port: 9101
+    namespace: lake-formation-mcp
+    transport: http
+    tools:
+    - name: registerresource
+      description: Registers an Amazon S3 path as a data lake location managed by Lake Formation.
+      hints:
+        readOnly: false
+        idempotent: false
+      call: lake-formation.registerresource
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listresources
+      description: Lists the resources registered as managed by Lake Formation.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: lake-formation.listresources
+      outputParameters:
+      - type: object
+        mapping: $.

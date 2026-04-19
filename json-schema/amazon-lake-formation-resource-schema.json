@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-lake-formation/refs/heads/main/json-schema/amazon-lake-formation-resource-schema.json",
+  "title": "DataLakeResource",
+  "description": "A resource registered with AWS Lake Formation.",
+  "type": "object",
+  "properties": {
+    "ResourceArn": {
+      "type": "string",
+      "description": "The ARN of the resource registered with Lake Formation."
+    },
+    "RoleArn": {
+      "type": "string",
+      "description": "The IAM role that registered the resource."
+    },
+    "LastModified": {
+      "type": "string",
+      "description": "The date and time the resource was last modified.",
+      "format": "date-time"
+    }
+  }
+}

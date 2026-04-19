@@ -1,0 +1,5 @@
+{
+  "ResourceArn": "arn:aws:service:us-east-1:123456789012:resource/example",
+  "RoleArn": "arn:aws:service:us-east-1:123456789012:resource/example",
+  "LastModified": "2025-03-15T14:30:00Z"
+}
