@@ -1,0 +1,13 @@
+{
+  "repo": "amazon-lake-formation",
+  "feeds": [
+    {
+      "source": "https://aws.amazon.com/blogs/big-data/category/analytics/aws-lake-formation/",
+      "feed_url": "https://aws.amazon.com/blogs/big-data/category/analytics/aws-lake-formation/feed/",
+      "saved": 10,
+      "title": "AWS Lake Formation \u2013 AWS Big Data Blog"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:21:31Z"
+}

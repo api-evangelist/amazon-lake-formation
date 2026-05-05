@@ -1,0 +1,84 @@
+---
+title: "The Amazon SageMaker lakehouse architecture now automates optimization configuration of Apache Iceberg tables on Amazon S3"
+url: "https://aws.amazon.com/blogs/big-data/the-amazon-sagemaker-lakehouse-architecture-now-automates-optimization-configuration-of-apache-iceberg-tables-on-amazon-s3/"
+date: "Fri, 08 Aug 2025 21:40:34 +0000"
+author: "Tomohiro Tanaka"
+feed_url: "https://aws.amazon.com/blogs/big-data/category/analytics/aws-lake-formation/feed/"
+---
+<p>As organizations increasingly adopt Apache Iceberg tables for their data lake architectures on <a href="https://aws.amazon.com/" rel="noopener noreferrer" target="_blank">Amazon Web Services</a> (AWS), maintaining these tables becomes crucial for long-term success. Without proper maintenance, Iceberg tables can face several challenges: degraded query performance, unnecessary retention of old data that should be removed, and a decline in storage cost efficiency. These issues can significantly impact the effectiveness and economics of your data lake. Regular table maintenance operations help ensure your Iceberg tables remain high performing, compliant with data retention policies, and cost-effective for production workloads. To help you manage your Iceberg tables at scale, <a href="https://aws.amazon.com/glue/" rel="noopener noreferrer" target="_blank">AWS Glue</a> automated those Iceberg table maintenance operations: <a href="https://aws.amazon.com/blogs/aws/aws-glue-data-catalog-now-supports-automatic-compaction-of-apache-iceberg-tables/" rel="noopener noreferrer" target="_blank">compaction</a> with <a href="https://aws.amazon.com/blogs/aws/new-improve-apache-iceberg-query-performance-in-amazon-s3-with-sort-and-z-order-compaction/" rel="noopener noreferrer" target="_blank">sort and z-order</a> and <a href="https://aws.amazon.com/blogs/big-data/the-aws-glue-data-catalog-now-supports-storage-optimization-of-apache-iceberg-tables/" rel="noopener noreferrer" target="_blank">snapshots expiration and orphan data management</a>. After the launch of the feature, many customers have enabled automated table optimization through <a href="https://docs.aws.amazon.com/glue/latest/dg/catalog-and-crawler.html" rel="noopener noreferrer" target="_blank">AWS Glue Data Catalog</a> to reduce operational burden.</p> 
+<p>The Amazon SageMaker lakehouse architecture now automates <a href="https://docs.aws.amazon.com/glue/latest/dg/table-optimizers.html" rel="noopener noreferrer" target="_blank">optimization of Iceberg tables</a> stored in Amazon S3 with catalog-level configuration, optimizing storage in your Iceberg tables and improving query performance. Previously, optimizing Iceberg tables in AWS Glue Data Catalog required updating configurations for each table individually. Now, you can enable automatic optimization for new Iceberg tables with one-time Data Catalog configuration. Once enabled, for any new table or updated table, Data Catalog continuously optimizes tables by compacting small files, removing snapshots, and unreferenced files that are no longer needed.</p> 
+<p>This post demonstrates an end-to-end flow to enable catalog level table optimization setting.</p> 
+<h2>Prerequisites</h2> 
+<p>The following prerequisites are required to use the new catalog-level table optimizations:</p> 
+<ul> 
+ <li>An active AWS account.</li> 
+ <li>A data lake administrator to configure the table optimizations at the catalog level. To create the data lake administrator, refer to <a href="https://docs.aws.amazon.com/lake-formation/latest/dg/initial-lf-config.html#create-data-lake-admin" rel="noopener noreferrer" target="_blank">Set up AWS Lake Formation</a>.</li> 
+ <li>An <a href="https://aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank">AWS Identity and Access Management</a> (IAM) role for the table optimizations to access Iceberg tables. For the instructions, refer to <a href="https://docs.aws.amazon.com/glue/latest/dg/catalog-level-optimizers.html" rel="noopener noreferrer" target="_blank">Catalog level table optimization prerequisites</a>.</li> 
+</ul> 
+<h2>Enable table optimizations at the catalog level</h2> 
+<p>The data lake administrator can enable the catalog-level table optimization on the <a href="https://aws.amazon.com/lake-formation/" rel="noopener noreferrer" target="_blank">AWS Lake Formation</a> console. Complete the following steps:</p> 
+<ol> 
+ <li>On the AWS Lake Formation console, choose <strong>Catalogs</strong> in the navigation pane.</li> 
+ <li>Select the catalog to be enabled with catalog-level table optimizations.</li> 
+ <li>Choose<strong> Table optimizations</strong> tab, and choose <strong>Edit</strong> in <strong>Table optimizations</strong>, as shown in the following screenshot.</li> 
+</ol> 
+<p><a href="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2025/07/22/bdb5362_1.png"><img alt="setup-catalog-level-optimizations" class="alignnone size-full wp-image-81168" height="1230" src="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2025/07/22/bdb5362_1.png" style="margin: 10px 0px 10px 0px;" width="2812" /></a></p> 
+<ol start="4"> 
+ <li>In <strong>Optimization options</strong>, select <strong>Compaction</strong>, <strong>Snapshot retention</strong>, and <strong>Orphan file deletion</strong>, as shown in the following screenshot.</li> 
+</ol> 
+<p><img alt="enable-optimizations" class="alignnone size-full wp-image-81169" height="812" src="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2025/07/22/bdb5362_2.png" style="margin: 10px 0px 10px 0px;" width="2752" /></p> 
+<ol start="5"> 
+ <li>Select an IAM role. Refer to <a href="https://docs.aws.amazon.com/glue/latest/dg/optimization-prerequisites.html" rel="noopener noreferrer" target="_blank">Table optimization prerequisites</a> for permissions.</li> 
+ <li>Choose <strong>Grant required permissions</strong>.</li> 
+ <li>Choose <strong>I acknowledge that expired data will be deleted as part of the optimizers</strong>.</li> 
+</ol> 
+<p>After you enable the table optimizations at the catalog level, the configuration is displayed on the AWS Lake Formation console, as shown in the following screenshot.</p> 
+<p><img alt="optimizations-configuration" class="alignnone size-full wp-image-81170" height="1104" src="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2025/07/22/bdb5362_3.png" style="margin: 10px 0px 10px 0px;" width="2760" /></p> 
+<p>When you select an Iceberg table registered in the catalog, you can confirm that the table optimizations configuration is inherited from the table view because <strong>Configuration source </strong>shows <strong>catalog</strong>, as shown in the following screenshot.</p> 
+<p><img alt="catalog-level-optimizations" class="alignnone size-full wp-image-81171" height="1482" src="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2025/07/22/bdb5362_4.png" style="margin: 10px 0px 10px 0px;" width="3356" /></p> 
+<p>The table optimizations history is displayed on the table view. The following result shows one of the compaction runs by the table optimizations.</p> 
+<p><img alt="binpack-compaction-result" class="alignnone size-full wp-image-81172" height="882" src="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2025/07/22/bdb5362_5.png" style="margin: 10px 0px 10px 0px;" width="3366" /></p> 
+<p>The catalog-level table optimizations for all databases and Iceberg tables are now enabled.</p> 
+<h2>Customize setting of table optimizations at both the catalog and table-level</h2> 
+<p>Although the catalog-level optimization applies common settings across all databases and Iceberg tables in your catalog, you might want to apply different strategies for specific Iceberg tables. You can use AWS Glue Data Catalog to enable both catalog-level and table-level optimizations based on specific table characteristics and access patterns. For example, in addition to configuring the catalog-level compaction with the bin-pack strategy for general-purpose Iceberg tables, you can apply the sort strategy at the table-level to tables with frequent range queries on timestamp columns.</p> 
+<p>This section shows configuring catalog-level and table-specific optimizations through a practical scenario. Imagine a real-time analytics table with frequent write operations that generates more orphan files due to constant metadata updates. Users also run selective queries filtering specific columns, which makes sort-order strategy preferable. Complete the following steps:</p> 
+<ol> 
+ <li>Select another Iceberg table in the same catalog as before to configure the table-level optimizations on the AWS Lake Formation console. At this point, the catalog-level table optimizations are configured for this table.</li> 
+ <li>Choose <strong>Edit</strong> in <strong>Optimization configuration</strong>, as shown in the following screenshot.</li> 
+</ol> 
+<p><a href="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2025/07/22/bdb5362_6-1.png"><img alt="new-optimizations-configuration" class="alignnone size-full wp-image-81182" height="1434" src="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2025/07/22/bdb5362_6-1.png" style="margin: 10px 0px 10px 0px;" width="2752" /></a></p> 
+<ol start="3"> 
+ <li>In <strong>Optimization options</strong>, choose <strong>Compaction</strong>, <strong>Snapshot retention</strong>, and <strong>Orphan file deletion</strong>.</li> 
+ <li>In <strong>Optimization configuration</strong>, choose <strong>Customize settings</strong>.</li> 
+ <li>Select the same IAM role.</li> 
+ <li>In <strong>Compaction configuration</strong>, select <strong>Sort</strong>, as shown in the following screenshot. Also configure 80 files to <strong>Minimum input files</strong>, which is a threshold of the number of files to trigger the compaction. To configure <strong>Sort</strong>, a sort order needs to be defined in your Iceberg table. You can define the sort order with Spark SQL such as <code>ALTER TABLE db.tbl WRITE ORDERED BY &lt;columns&gt;</code>.</li> 
+</ol> 
+<p><img alt="sort-config" class="alignnone size-full wp-image-81174" height="1370" src="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2025/07/22/bdb5362_7.png" style="margin: 10px 0px 10px 0px;" width="1526" /></p> 
+<ol start="7"> 
+ <li>In <strong>Snapshot retention configuration</strong> and <strong>Snapshot deletion run rate</strong>, select <strong>Specify a custom value in hours</strong>. Then, configure 12 hours to the interval between two deletion job runs, as shown in the following screenshot.</li> 
+</ol> 
+<p><img alt="snapshot-retention" class="alignnone size-full wp-image-81175" height="964" src="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2025/07/22/bdb5362_8.png" style="margin: 10px 0px 10px 0px;" width="1222" /></p> 
+<ol start="8"> 
+ <li>In <strong>Orphan file deletion configuration</strong>, configure 1 day to <strong>Files under the provided Table Location with a creation time older than this number of days will be deleted if they are no longer referenced by the Apache Iceberg Table metadata. </strong></li> 
+</ol> 
+<p><img alt="orphan-deletion" class="alignnone size-full wp-image-81176" height="586" src="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2025/07/22/bdb5362_9.png" style="margin: 10px 0px 10px 0px;" width="1742" /></p> 
+<ol start="9"> 
+ <li>Choose <strong>Grant required permissions</strong>.</li> 
+ <li>Choose <strong>I acknowledge that expired data will be deleted as part of the optimizers</strong>.</li> 
+ <li>Choose <strong>Save</strong>.</li> 
+ <li>The <strong>Table optimization</strong> tab on the AWS Lake Formation console displays the custom setting of table optimizers. In <strong>Compaction</strong>, <strong>Compaction strategy</strong> is configured to <strong>sort</strong> and <strong>Minimum input files</strong> is also configured to <strong>80 files</strong>. In <strong>Snapshot retention</strong>, <strong>Snapshot deletion run rate</strong> is configured to <strong>12 hours</strong>. In <strong>Orphan file deletion</strong>, <strong>Orphan files will be deleted after</strong> is configured to <strong>1 days</strong>, as shown in the following screenshot.</li> 
+</ol> 
+<p><img alt="new-table-level-optimizations" class="alignnone size-full wp-image-81177" height="1482" src="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2025/07/22/bdb5362_10.png" style="margin: 10px 0px 10px 0px;" width="3286" /></p> 
+<p>The compaction history shows <strong>sort</strong> as its table-level compaction strategy even if the strategy in the catalog-level is configured to binpack, as shown in the following screenshot.</p> 
+<p><img alt="sort-compaction-result" class="alignnone size-full wp-image-81178" height="890" src="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2025/07/22/bdb5362_11.png" style="margin: 10px 0px 10px 0px;" width="3372" /></p> 
+<p>In this scenario, the table-specific optimizations are configured along with the catalog-level optimizations. Combining the table and catalog-level optimizations means you can more flexibly manage your Iceberg table data deletions and compactions.</p> 
+<h2>Conclusion</h2> 
+<p>In this post, we demonstrated how to enable and manage using Amazon SageMaker lakehouse architecture with AWS Glue Data Catalog’s catalog-level table optimization feature for Iceberg tables. This enhancement significantly simplifies the management of Iceberg tables because you can enable automated maintenance operations across all tables with a single setting. Instead of configuring optimization settings for individual tables, you can now maintain your entire data lake more efficiently, reducing operational overhead while ensuring consistent optimization policies. We recommend enabling catalog-level table optimization to help you maintain a well-organized, high-performing, and cost-effective data lake while freeing up your teams to focus on deriving value from your data.</p> 
+<p>Try out this feature for your own use case and share your feedback and questions in the comments. To learn more about AWS Glue Data Catalog table optimizer, visit <a href="https://docs.aws.amazon.com/glue/latest/dg/catalog-level-optimizers.html" rel="noopener noreferrer" target="_blank">Optimizing Iceberg tables</a>.</p> 
+<p><em><strong>Acknowledgment: A special thanks to everyone who contributed to the development and launch of catalog level optimization: Siddharth Padmanabhan Ramanarayanan, Dhrithi Chidananda, Noella Jiang, Sangeet Lohariwala, Shyam Rathi, Anuj Jigneshkumar Vakil, and Jeremy Song.</strong></em></p> 
+<hr /> 
+<h3>About the authors</h3> 
+<p style="clear: both;"><img alt="" class="size-full wp-image-30835 alignleft" height="133" src="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2022/06/13/tomtan.jpg" width="100" /><strong>Tomohiro Tanaka</strong> is a Senior Cloud Support Engineer at Amazon Web Services (AWS). He’s passionate about helping customers use Apache Iceberg for their data lakes on AWS. In his free time, he enjoys a coffee break with his colleagues and making coffee at home.</p> 
+<p style="clear: both;"><img alt="" class="size-full wp-image-16628 alignleft" height="133" src="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2021/02/10/Noritaka-Sekiyama-p.png" width="100" /><strong>Noritaka Sekiyama</strong> is a Principal Big Data Architect with AWS Analytics services. He’s responsible for building software artifacts to help customers. In his spare time, he enjoys cycling on his road bike.</p> 
+<p style="clear: both;"><strong><img alt="" class="wp-image-77135 size-full alignleft" height="100" src="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2025/04/15/sandeep_li.jpg" width="100" />Sandeep Adwankar</strong> is a Senior Product Manager at Amazon Web Services (AWS). Based in the California Bay Area, he works with customers around the globe to translate business and technical requirements into products customers can use to improve how they manage, secure, and access data.</p> 
+<p style="clear: both;"><strong><img alt="" class="size-full wp-image-82017 alignleft" height="97" src="https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2025/08/08/siddharth.png" width="100" />Siddharth Padmanabhan Ramanarayanan</strong> is a Senior Software Engineer on the AWS Glue and AWS Lake Formation team, where he focuses on building scalable distributed systems for data analytics workloads. He is passionate about helping customers optimize their cloud infrastructure for performance and cost efficiency.</p>
