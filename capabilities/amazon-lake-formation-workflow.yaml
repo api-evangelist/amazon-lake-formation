@@ -1,4 +1,4 @@
-naftiko: 1.0.0-alpha1
+naftiko: 1.0.0-alpha2
 info:
   label: Amazon Lake Formation Workflow
   description: Unified workflow capability for Amazon Lake Formation combining resource management and operations.
@@ -7,7 +7,7 @@ info:
   - AWS
   - Workflow
   created: '2026-04-19'
-  modified: '2026-04-19'
+  modified: '2026-05-06'
 binds:
 - namespace: env
   keys:
@@ -15,8 +15,44 @@ binds:
     AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
 capability:
   consumes:
-  - import: lake-formation
-    location: ./shared/lake-formation.yaml
+  - type: http
+    namespace: lake-formation
+    baseUri: https://lakeformation.us-east-1.amazonaws.com
+    description: Amazon Lake Formation service.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{AWS_ACCESS_KEY_ID}}'
+      placement: header
+    resources:
+    - name: resources
+      path: /resources
+      description: Data lake resource management
+      operations:
+      - name: registerresource
+        method: POST
+        description: Registers an Amazon S3 path as a data lake location managed by Lake Formation.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: listresources
+        method: GET
+        description: Lists the resources registered as managed by Lake Formation.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: describeresource
+        method: GET
+        description: Retrieves the current data access role for the given resource registered in Lake Formation.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
   - type: rest
     port: 8080
