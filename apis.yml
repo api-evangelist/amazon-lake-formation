@@ -2,8 +2,8 @@ name: Amazon Lake Formation
 segments:
 - Data Lakes
 - Analytics
-description: AWS Lake Formation is a service that makes it easy to set up a secure data lake in days, providing centralized governance and security for data stored in Amazon S3 and other AWS data 
-  stores with fine-grained access control.
+description: AWS Lake Formation is a service that makes it easy to set up a secure data lake in days, providing centralized
+  governance and security for data stored in Amazon S3 and other AWS data stores with fine-grained access control.
 url: https://aws.amazon.com/lake-formation/
 type: Index
 image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
@@ -15,11 +15,11 @@ tags:
 - Data Lake
 - S3
 created: '2024-01-15'
-modified: '2026-04-19'
+modified: '2026-05-19'
 apis:
 - name: Amazon Lake Formation API
-  description: The AWS Lake Formation API provides programmatic access to create and manage data lakes, configure data permissions and access controls, register data sources, and manage data catalog 
-    resources for centralized data governance.
+  description: The AWS Lake Formation API provides programmatic access to create and manage data lakes, configure data permissions
+    and access controls, register data sources, and manage data catalog resources for centralized data governance.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
   humanURL: https://aws.amazon.com/lake-formation/
   baseURL: https://lakeformation.amazonaws.com
@@ -52,6 +52,8 @@ apis:
     url: json-schema/amazon-lake-formation-resource-schema.json
   - type: JSONSchema
     url: json-schema/amazon-lake-formation-permission-schema.json
+  - type: NaftikoCapability
+    url: capabilities/amazon-lake-formation-resources.yaml
 common:
 - type: Blog
   url: https://aws.amazon.com/blogs/big-data/category/analytics/aws-lake-formation/
@@ -117,22 +119,20 @@ common:
     description: Use Redshift Spectrum to query data lake with Lake Formation permissions.
 - type: SpectralRules
   url: rules/amazon-lake-formation-spectral-rules.yml
-- type: NaftikoCapability
-  url: capabilities/amazon-lake-formation-workflow.yaml
 - type: Vocabulary
   url: vocabulary/amazon-lake-formation-vocabulary.yaml
 - type: Integrations
   url: https://aws.amazon.com/marketplace
 integrations:
-  - name: Sign in
-  - name: Agent Mode
-  - name: 'Why AWS Marketplace?'
-  - name: Get started in AWS Marketplace
-  - name: Industry
-  - name: Resources
-  - name: Become a Channel Partner
-  - name: Sell in AWS Marketplace
-  - name: Manage Your Account
+- name: Sign in
+- name: Agent Mode
+- name: Why AWS Marketplace?
+- name: Get started in AWS Marketplace
+- name: Industry
+- name: Resources
+- name: Become a Channel Partner
+- name: Sell in AWS Marketplace
+- name: Manage Your Account
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
