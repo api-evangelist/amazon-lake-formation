@@ -1,0 +1,127 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Lake Formation Migrate Principal Permissions
+  summary: Grant a destination principal the same permissions and then revoke them from the source principal.
+  description: >-
+    A common access-handoff pattern when ownership of a data set moves from one
+    identity to another. The workflow lists the source principal's current
+    permissions on the resource, branches on whether any permissions exist,
+    grants the equivalent permissions to the destination principal, and revokes
+    the permissions from the source principal so access cleanly transfers.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lakeFormationApi
+  url: ../openapi/amazon-lake-formation-openapi.yml
+  type: openapi
+workflows:
+- workflowId: migrate-principal-permissions
+  summary: Transfer resource permissions from a source principal to a destination principal.
+  description: >-
+    Lists the source principal's permissions, grants the same permissions to the
+    destination principal, and revokes them from the source principal to
+    complete the handoff.
+  inputs:
+    type: object
+    required:
+    - sourcePrincipal
+    - destinationPrincipal
+    - resource
+    - permissions
+    properties:
+      sourcePrincipal:
+        type: object
+        description: The DataLakePrincipal currently holding the permissions.
+      destinationPrincipal:
+        type: object
+        description: The DataLakePrincipal that should receive the permissions.
+      resource:
+        type: object
+        description: The Data Catalog Resource the permissions apply to.
+      permissions:
+        type: array
+        description: The list of permissions to migrate (e.g. ["SELECT","DESCRIBE"]).
+        items:
+          type: string
+      permissionsWithGrantOption:
+        type: array
+        description: The subset of grant-option permissions to migrate.
+        items:
+          type: string
+  steps:
+  - stepId: listSource
+    description: >-
+      List the source principal's current permissions on the resource to
+      confirm there is something to migrate.
+    operationId: ListPermissions
+    requestBody:
+      contentType: application/json
+      payload:
+        Principal: $inputs.sourcePrincipal
+        Resource: $inputs.resource
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      sourcePermissions: $response.body#/PrincipalResourcePermissions
+    onSuccess:
+    - name: hasPermissions
+      type: goto
+      stepId: grantDestination
+      criteria:
+      - context: $response.body
+        condition: $.PrincipalResourcePermissions.length > 0
+        type: jsonpath
+    - name: nothingToMigrate
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.PrincipalResourcePermissions.length == 0
+        type: jsonpath
+  - stepId: grantDestination
+    description: >-
+      Grant the destination principal the same permissions on the resource.
+    operationId: GrantPermissions
+    requestBody:
+      contentType: application/json
+      payload:
+        Principal: $inputs.destinationPrincipal
+        Resource: $inputs.resource
+        Permissions: $inputs.permissions
+        PermissionsWithGrantOption: $inputs.permissionsWithGrantOption
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      grantStatus: $statusCode
+  - stepId: revokeSource
+    description: >-
+      Revoke the permissions from the source principal to complete the transfer.
+    operationId: RevokePermissions
+    requestBody:
+      contentType: application/json
+      payload:
+        Principal: $inputs.sourcePrincipal
+        Resource: $inputs.resource
+        Permissions: $inputs.permissions
+        PermissionsWithGrantOption: $inputs.permissionsWithGrantOption
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      revokeStatus: $statusCode
+  - stepId: listDestination
+    description: >-
+      List the destination principal's permissions to confirm the migration
+      landed.
+    operationId: ListPermissions
+    requestBody:
+      contentType: application/json
+      payload:
+        Principal: $inputs.destinationPrincipal
+        Resource: $inputs.resource
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      destinationPermissions: $response.body#/PrincipalResourcePermissions
+  outputs:
+    sourcePermissions: $steps.listSource.outputs.sourcePermissions
+    destinationPermissions: $steps.listDestination.outputs.destinationPermissions

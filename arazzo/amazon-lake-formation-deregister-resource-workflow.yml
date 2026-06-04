@@ -1,0 +1,68 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Lake Formation Deregister Resource Lifecycle
+  summary: Confirm a registered data lake location exists, deregister it, and verify removal.
+  description: >-
+    The teardown flow for a registered data lake location. The workflow
+    describes the resource to confirm it is currently registered, deregisters
+    it from the Data Catalog, and then lists the registered resources to confirm
+    the location is no longer managed by Lake Formation. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lakeFormationApi
+  url: ../openapi/amazon-lake-formation-openapi.yml
+  type: openapi
+workflows:
+- workflowId: deregister-resource
+  summary: Verify, deregister, and confirm removal of a managed data lake location.
+  description: >-
+    Describes the registered resource to confirm it exists, deregisters it from
+    the Data Catalog, and lists remaining resources to confirm it was removed.
+  inputs:
+    type: object
+    required:
+    - resourceArn
+    properties:
+      resourceArn:
+        type: string
+        description: The ARN of the registered data lake location to deregister.
+  steps:
+  - stepId: describeResource
+    description: >-
+      Confirm the resource is currently registered by retrieving its data
+      access role.
+    operationId: DescribeResource
+    parameters:
+    - name: resourceArn
+      in: path
+      value: $inputs.resourceArn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      resourceInfo: $response.body#/ResourceInfo
+  - stepId: deregisterResource
+    description: >-
+      Deregister the resource so it is no longer managed by the Data Catalog.
+    operationId: DeregisterResource
+    parameters:
+    - name: resourceArn
+      in: path
+      value: $inputs.resourceArn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deregisterStatus: $statusCode
+  - stepId: listResources
+    description: >-
+      List the resources still registered with Lake Formation to confirm the
+      deregistered location is gone.
+    operationId: ListResources
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      resourceInfoList: $response.body#/ResourceInfoList
+  outputs:
+    deregisterStatus: $steps.deregisterResource.outputs.deregisterStatus
+    remainingResources: $steps.listResources.outputs.resourceInfoList

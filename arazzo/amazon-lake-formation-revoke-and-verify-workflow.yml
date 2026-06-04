@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Lake Formation Revoke Permissions and Verify
+  summary: Revoke a principal's permissions on a resource and verify they were removed.
+  description: >-
+    The off-boarding counterpart to a permission grant. The workflow first lists
+    the principal's current permissions on the resource, branches on whether any
+    permissions exist, revokes the requested permissions, and re-lists the
+    permissions to confirm the revocation. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lakeFormationApi
+  url: ../openapi/amazon-lake-formation-openapi.yml
+  type: openapi
+workflows:
+- workflowId: revoke-and-verify
+  summary: Revoke a principal's permissions on a resource and confirm removal.
+  description: >-
+    Lists current permissions, revokes the requested permissions from the
+    principal on the target resource when any exist, and re-lists to confirm the
+    revocation took effect.
+  inputs:
+    type: object
+    required:
+    - principal
+    - resource
+    - permissions
+    properties:
+      principal:
+        type: object
+        description: The DataLakePrincipal whose permissions are being revoked.
+      resource:
+        type: object
+        description: The Data Catalog Resource the permissions apply to.
+      permissions:
+        type: array
+        description: The list of permissions to revoke (e.g. ["SELECT","DESCRIBE"]).
+        items:
+          type: string
+      permissionsWithGrantOption:
+        type: array
+        description: The subset of grant-option permissions to revoke.
+        items:
+          type: string
+  steps:
+  - stepId: listBefore
+    description: >-
+      List the principal's current permissions on the resource before any
+      revocation is attempted.
+    operationId: ListPermissions
+    requestBody:
+      contentType: application/json
+      payload:
+        Principal: $inputs.principal
+        Resource: $inputs.resource
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      before: $response.body#/PrincipalResourcePermissions
+    onSuccess:
+    - name: hasPermissions
+      type: goto
+      stepId: revokePermissions
+      criteria:
+      - context: $response.body
+        condition: $.PrincipalResourcePermissions.length > 0
+        type: jsonpath
+    - name: noPermissions
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.PrincipalResourcePermissions.length == 0
+        type: jsonpath
+  - stepId: revokePermissions
+    description: >-
+      Revoke the requested permissions from the principal on the target
+      resource.
+    operationId: RevokePermissions
+    requestBody:
+      contentType: application/json
+      payload:
+        Principal: $inputs.principal
+        Resource: $inputs.resource
+        Permissions: $inputs.permissions
+        PermissionsWithGrantOption: $inputs.permissionsWithGrantOption
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      revokeStatus: $statusCode
+  - stepId: listAfter
+    description: >-
+      Re-list the principal's permissions on the resource to confirm the
+      requested permissions were removed.
+    operationId: ListPermissions
+    requestBody:
+      contentType: application/json
+      payload:
+        Principal: $inputs.principal
+        Resource: $inputs.resource
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      after: $response.body#/PrincipalResourcePermissions
+  outputs:
+    permissionsBefore: $steps.listBefore.outputs.before
+    permissionsAfter: $steps.listAfter.outputs.after

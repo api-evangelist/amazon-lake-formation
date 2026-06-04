@@ -1,0 +1,95 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Lake Formation Rotate Resource Data Access Role
+  summary: Swap the IAM data access role on a registered data lake location by deregistering and re-registering it.
+  description: >-
+    Lake Formation does not expose an in-place update for a registered
+    location's data access role, so rotating the role is modeled as a
+    deregister-then-register sequence. The workflow describes the current
+    registration to capture the existing role, deregisters the location, and
+    re-registers it with the new IAM role, finishing with a describe to confirm
+    the new role is in effect. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lakeFormationApi
+  url: ../openapi/amazon-lake-formation-openapi.yml
+  type: openapi
+workflows:
+- workflowId: reregister-resource-role
+  summary: Rotate the IAM data access role on a registered data lake location.
+  description: >-
+    Captures the current registration, deregisters the location, re-registers it
+    with a new IAM role, and confirms the new role via a describe.
+  inputs:
+    type: object
+    required:
+    - resourceArn
+    - newRoleArn
+    properties:
+      resourceArn:
+        type: string
+        description: The ARN of the registered data lake location whose role is being rotated.
+      newRoleArn:
+        type: string
+        description: The new IAM role ARN Lake Formation should assume for the location.
+      useServiceLinkedRole:
+        type: boolean
+        description: Whether to re-register using the Lake Formation service-linked role.
+  steps:
+  - stepId: describeBefore
+    description: >-
+      Capture the current data access role for the registered location before
+      rotation.
+    operationId: DescribeResource
+    parameters:
+    - name: resourceArn
+      in: path
+      value: $inputs.resourceArn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      previousResourceInfo: $response.body#/ResourceInfo
+  - stepId: deregisterResource
+    description: >-
+      Deregister the location so it can be re-registered with the new role.
+    operationId: DeregisterResource
+    parameters:
+    - name: resourceArn
+      in: path
+      value: $inputs.resourceArn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deregisterStatus: $statusCode
+  - stepId: reregisterResource
+    description: >-
+      Re-register the same location with the new IAM data access role.
+    operationId: RegisterResource
+    requestBody:
+      contentType: application/json
+      payload:
+        ResourceArn: $inputs.resourceArn
+        RoleArn: $inputs.newRoleArn
+        UseServiceLinkedRole: $inputs.useServiceLinkedRole
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      reregisterStatus: $statusCode
+  - stepId: describeAfter
+    description: >-
+      Describe the location again to confirm the new data access role is in
+      effect.
+    operationId: DescribeResource
+    parameters:
+    - name: resourceArn
+      in: path
+      value: $inputs.resourceArn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      currentResourceInfo: $response.body#/ResourceInfo
+  outputs:
+    previousResourceInfo: $steps.describeBefore.outputs.previousResourceInfo
+    currentResourceInfo: $steps.describeAfter.outputs.currentResourceInfo

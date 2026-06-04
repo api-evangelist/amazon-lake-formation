@@ -1,0 +1,120 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Lake Formation Register Resource and Grant Permissions
+  summary: Register an Amazon S3 location as a data lake resource and grant a principal access to it.
+  description: >-
+    The foundational Lake Formation onboarding flow. The workflow registers an
+    Amazon S3 path as a Lake Formation managed location using a data access IAM
+    role, confirms the registration by describing the resource, grants a
+    principal a set of permissions on a Data Catalog resource, and finally lists
+    the resulting permissions so the grant can be verified. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lakeFormationApi
+  url: ../openapi/amazon-lake-formation-openapi.yml
+  type: openapi
+workflows:
+- workflowId: register-and-grant
+  summary: Register an S3 data lake location and grant a principal permissions on a resource.
+  description: >-
+    Registers the supplied Amazon S3 path with a data access role, verifies the
+    registration, grants the principal permissions on the target catalog
+    resource, and lists the principal permissions to confirm the grant.
+  inputs:
+    type: object
+    required:
+    - resourceArn
+    - roleArn
+    - principal
+    - resource
+    - permissions
+    properties:
+      resourceArn:
+        type: string
+        description: The Amazon S3 path ARN to register as a data lake location (e.g. arn:aws:s3:::my-bucket/prefix).
+      roleArn:
+        type: string
+        description: The IAM role ARN Lake Formation assumes to access the registered location.
+      useServiceLinkedRole:
+        type: boolean
+        description: Whether to register the location using the Lake Formation service-linked role.
+      principal:
+        type: object
+        description: The DataLakePrincipal (e.g. {"DataLakePrincipalIdentifier":"arn:aws:iam::123456789012:role/analyst"}).
+      resource:
+        type: object
+        description: The Data Catalog Resource the permissions apply to (Database, Table, etc.).
+      permissions:
+        type: array
+        description: The list of permissions to grant (e.g. ["SELECT","DESCRIBE"]).
+        items:
+          type: string
+      permissionsWithGrantOption:
+        type: array
+        description: The subset of permissions the principal may further grant to others.
+        items:
+          type: string
+  steps:
+  - stepId: registerResource
+    description: >-
+      Register the Amazon S3 path as a data lake location managed by Lake
+      Formation using the supplied data access role.
+    operationId: RegisterResource
+    requestBody:
+      contentType: application/json
+      payload:
+        ResourceArn: $inputs.resourceArn
+        RoleArn: $inputs.roleArn
+        UseServiceLinkedRole: $inputs.useServiceLinkedRole
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      registerStatus: $statusCode
+  - stepId: describeResource
+    description: >-
+      Confirm the registration by retrieving the current data access role for
+      the registered resource.
+    operationId: DescribeResource
+    parameters:
+    - name: resourceArn
+      in: path
+      value: $inputs.resourceArn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      resourceInfo: $response.body#/ResourceInfo
+  - stepId: grantPermissions
+    description: >-
+      Grant the principal the requested permissions on the target Data Catalog
+      resource.
+    operationId: GrantPermissions
+    requestBody:
+      contentType: application/json
+      payload:
+        Principal: $inputs.principal
+        Resource: $inputs.resource
+        Permissions: $inputs.permissions
+        PermissionsWithGrantOption: $inputs.permissionsWithGrantOption
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      grantStatus: $statusCode
+  - stepId: listPermissions
+    description: >-
+      List the principal permissions on the resource to verify the grant was
+      applied.
+    operationId: ListPermissions
+    requestBody:
+      contentType: application/json
+      payload:
+        Principal: $inputs.principal
+        Resource: $inputs.resource
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      principalResourcePermissions: $response.body#/PrincipalResourcePermissions
+  outputs:
+    resourceInfo: $steps.describeResource.outputs.resourceInfo
+    principalResourcePermissions: $steps.listPermissions.outputs.principalResourcePermissions
