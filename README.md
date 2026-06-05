@@ -1,75 +1,87 @@
 # Amazon Lake Formation (amazon-lake-formation)
+
 AWS Lake Formation is a service that makes it easy to set up a secure data lake in days, providing centralized governance and security for data stored in Amazon S3 and other AWS data stores with fine-grained access control.
 
-**URL:** [https://aws.amazon.com/lake-formation/](https://aws.amazon.com/lake-formation/)
+**APIs.json:** [https://aws.amazon.com/lake-formation/](https://aws.amazon.com/lake-formation/)
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## Scope
 
-## Tags:
+- **Type:** Index
 
- - AWS, Data Lake, Analytics, Security, Governance
+## Tags
+
+- Access Control
+- Analytics
+- AWS
+- Data Governance
+- Data Lake
+- S3
 
 ## Timestamps
 
 - **Created:** 2024-01-15
-- **Modified:** 2026-04-19
+- **Modified:** 2026-05-19
 
 ## APIs
 
 ### Amazon Lake Formation API
 
-**Human URL:** [https://aws.amazon.com/lake-formation/](https://aws.amazon.com/lake-formation/)
+The AWS Lake Formation API provides programmatic access to create and manage data lakes, configure data permissions and access controls, register data sources, and manage data catalog resources for centralized data governance.
+
+- **Human URL:** [https://aws.amazon.com/lake-formation/](https://aws.amazon.com/lake-formation/)
+- **Base URL:** `https://lakeformation.amazonaws.com`
+
+#### Tags
+
+- Access Control
+- Data Governance
+- Data Lake
 
 #### Properties
 
-- [OpenAPI](openapi/amazon-lake-formation-openapi.yml)
-- [JSONSchema](json-schema/amazon-lake-formation-resource-schema.json)
-- [JSONSchema](json-schema/amazon-lake-formation-permission-schema.json)
-- [JSONLD](json-ld/amazon-lake-formation-context.jsonld)
+- [Documentation](https://docs.aws.amazon.com/lake-formation/latest/dg/what-is-lake-formation.html)
+- [OpenAPI](https://api.apis.guru/v2/specs/amazonaws.com/lakeformation/2017-03-31/openapi.yaml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Pricing](https://aws.amazon.com/lake-formation/pricing/)
+- [Getting Started](https://aws.amazon.com/lake-formation/getting-started/)
+- [F A Q](https://aws.amazon.com/lake-formation/faqs/)
+- [Features](https://aws.amazon.com/lake-formation/features/)
+- [Documentation](https://docs.aws.amazon.com/lake-formation/latest/dg/what-is-lake-formation.html)
+- [API Reference](https://docs.aws.amazon.com/lake-formation/latest/APIReference/Welcome.html)
+- [OpenAPI](openapi/amazon-lake-formation-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/amazon-lake-formation.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/amazon-lake-formation.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [JSON-LD](json-ld/amazon-lake-formation-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [JSON Schema](json-schema/amazon-lake-formation-resource-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/amazon-lake-formation-permission-schema.json) — [JSON Schema](https://json-schema.org/specification)
 
-## Artifacts
+## Common Properties
 
-### OpenAPI
-
-- [Amazon Lake Formation API](openapi/amazon-lake-formation-openapi.yml)
-
-### JSON Schema
-
-- [Resource](json-schema/amazon-lake-formation-resource-schema.json)
-- [Permission](json-schema/amazon-lake-formation-permission-schema.json)
-
-### JSON Structure
-
-- [Resource](json-structure/amazon-lake-formation-resource-structure.json)
-- [Permission](json-structure/amazon-lake-formation-permission-structure.json)
-
-### JSON-LD
-
-- [Amazon Lake Formation Context](json-ld/amazon-lake-formation-context.jsonld)
-
-### Examples
-
-- [Resource Example](examples/amazon-lake-formation-resource-example.json)
-- [Permission Example](examples/amazon-lake-formation-permission-example.json)
-
-## Capabilities
-
-### Workflow Capabilities
-
-| Workflow | APIs Combined | Tools | Persona |
-|----------|--------------|-------|---------|
-| [Amazon Lake Formation Workflow](capabilities/amazon-lake-formation-workflow.yaml) | Lake Formation | 7 | Data Engineer, Security Administrator |
-
-## Vocabulary
-
-- [Amazon Lake Formation Vocabulary](vocabulary/amazon-lake-formation-vocabulary.yaml)
-
-## Rules
-
-- [Amazon Lake Formation Spectral Rules](rules/amazon-lake-formation-spectral-rules.yml)
+- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
+- [Blog](https://aws.amazon.com/blogs/big-data/category/analytics/aws-lake-formation/)
+- [Support](https://aws.amazon.com/premiumsupport/)
+- [Console](https://console.aws.amazon.com/lakeformation/home)
+- [C L I](https://docs.aws.amazon.com/cli/latest/reference/lakeformation/)
+- [SDK](https://aws.amazon.com/tools/)
+- [Status Page](https://status.aws.amazon.com/)
+- [Compliance](https://aws.amazon.com/compliance/)
+- [Terms of Service](https://aws.amazon.com/service-terms/)
+- [Portal](https://aws.amazon.com/lake-formation/)
+- [Documentation](https://docs.aws.amazon.com/lake-formation/)
+- [Pricing](https://aws.amazon.com/lake-formation/pricing/)
+- [Getting Started](https://aws.amazon.com/lake-formation/getting-started/)
+- [F A Q](https://aws.amazon.com/lake-formation/faqs/)
+- [Privacy Policy](https://aws.amazon.com/privacy/)
+- [Sign Up](https://portal.aws.amazon.com/billing/signup)
+- [GitHub Organization](https://github.com/aws)
+- [Features](undefined)
+- [Use Cases](undefined)
+- [Integrations](undefined)
+- [Spectral Rules](rules/amazon-lake-formation-spectral-rules.yml)
+- [Vocabulary](vocabulary/amazon-lake-formation-vocabulary.yaml)
+- [Integrations](https://aws.amazon.com/marketplace)
 
 ## Maintainers
 
 **FN:** Kin Lane
-
 **Email:** kin@apievangelist.com
+**URL:** https://apievangelist.com
