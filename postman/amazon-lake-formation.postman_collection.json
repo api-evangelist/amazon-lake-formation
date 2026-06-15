@@ -1,0 +1,1239 @@
+{
+  "info": {
+    "_postman_id": "0471cc09-9c02-45a4-90dc-a597ed4d5e6c",
+    "name": "Amazon Lake Formation API",
+    "description": "The Amazon Lake Formation API provides programmatic access to manage Lake Formation resources.\n\nContact Support:\n Name: AWS Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:04:33.000Z",
+    "updatedAt": "2026-06-05T15:04:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0471cc09-9c02-45a4-90dc-a597ed4d5e6c"
+  },
+  "item": [
+    {
+      "name": "resources",
+      "item": [
+        {
+          "name": "{resourceArn}",
+          "item": [
+            {
+              "name": "Amazon Lake Formation Describe Resource",
+              "id": "52a668a4-6ab9-45b7-9801-173ae54a2aa1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/resources/:resourceArn",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "resources",
+                    ":resourceArn"
+                  ],
+                  "variable": [
+                    {
+                      "id": "26d5c1cb-84bf-44b5-9fc7-e3f52f6763ba",
+                      "key": "resourceArn",
+                      "value": "<string>",
+                      "description": "(Required) The resource ARN."
+                    }
+                  ]
+                },
+                "description": "Retrieves the current data access role for the given resource registered in Lake Formation."
+              },
+              "response": [
+                {
+                  "id": "7901d892-03d3-4af9-bd55-209bc7474c15",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/resources/:resourceArn",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "resources",
+                        ":resourceArn"
+                      ],
+                      "variable": [
+                        {
+                          "key": "resourceArn"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:04:34.000Z",
+                  "updatedAt": "2026-06-05T15:04:34.000Z",
+                  "uid": "35240-7901d892-03d3-4af9-bd55-209bc7474c15"
+                },
+                {
+                  "id": "d74fb448-878e-4431-8b71-f3a501079cda",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/resources/:resourceArn",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "resources",
+                        ":resourceArn"
+                      ],
+                      "variable": [
+                        {
+                          "key": "resourceArn"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:04:34.000Z",
+                  "updatedAt": "2026-06-05T15:04:34.000Z",
+                  "uid": "35240-d74fb448-878e-4431-8b71-f3a501079cda"
+                },
+                {
+                  "id": "691595e4-b0ae-47a5-b95e-ffe7ec40fda4",
+                  "name": "Access denied",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/resources/:resourceArn",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "resources",
+                        ":resourceArn"
+                      ],
+                      "variable": [
+                        {
+                          "key": "resourceArn"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:04:34.000Z",
+                  "updatedAt": "2026-06-05T15:04:34.000Z",
+                  "uid": "35240-691595e4-b0ae-47a5-b95e-ffe7ec40fda4"
+                },
+                {
+                  "id": "92399aac-ef8c-4609-bc4f-c8c6e44b3534",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/resources/:resourceArn",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "resources",
+                        ":resourceArn"
+                      ],
+                      "variable": [
+                        {
+                          "key": "resourceArn"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:04:34.000Z",
+                  "updatedAt": "2026-06-05T15:04:34.000Z",
+                  "uid": "35240-92399aac-ef8c-4609-bc4f-c8c6e44b3534"
+                }
+              ],
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-52a668a4-6ab9-45b7-9801-173ae54a2aa1"
+            },
+            {
+              "name": "Amazon Lake Formation Deregister Resource",
+              "id": "b619031e-139a-4c20-bdb2-af6dfff40f64",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/resources/:resourceArn",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "resources",
+                    ":resourceArn"
+                  ],
+                  "variable": [
+                    {
+                      "id": "291a2422-3130-4728-abf0-6d0382d08e44",
+                      "key": "resourceArn",
+                      "value": "<string>",
+                      "description": "(Required) The resource ARN."
+                    }
+                  ]
+                },
+                "description": "Deregisters the resource as managed by the Data Catalog."
+              },
+              "response": [
+                {
+                  "id": "9a8f98de-008a-4197-849f-461ec04aa2de",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/resources/:resourceArn",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "resources",
+                        ":resourceArn"
+                      ],
+                      "variable": [
+                        {
+                          "key": "resourceArn"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:04:34.000Z",
+                  "updatedAt": "2026-06-05T15:04:34.000Z",
+                  "uid": "35240-9a8f98de-008a-4197-849f-461ec04aa2de"
+                },
+                {
+                  "id": "af7e68ec-544f-4bdb-b8a5-7470ba9ce784",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/resources/:resourceArn",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "resources",
+                        ":resourceArn"
+                      ],
+                      "variable": [
+                        {
+                          "key": "resourceArn"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:04:34.000Z",
+                  "updatedAt": "2026-06-05T15:04:34.000Z",
+                  "uid": "35240-af7e68ec-544f-4bdb-b8a5-7470ba9ce784"
+                },
+                {
+                  "id": "3fc3af64-cff2-4f03-9bcc-120aba31c93c",
+                  "name": "Access denied",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/resources/:resourceArn",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "resources",
+                        ":resourceArn"
+                      ],
+                      "variable": [
+                        {
+                          "key": "resourceArn"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:04:34.000Z",
+                  "updatedAt": "2026-06-05T15:04:34.000Z",
+                  "uid": "35240-3fc3af64-cff2-4f03-9bcc-120aba31c93c"
+                },
+                {
+                  "id": "c490efe6-21c1-4f7f-8b04-e0ddd67920e7",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/resources/:resourceArn",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "resources",
+                        ":resourceArn"
+                      ],
+                      "variable": [
+                        {
+                          "key": "resourceArn"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:04:34.000Z",
+                  "updatedAt": "2026-06-05T15:04:34.000Z",
+                  "uid": "35240-c490efe6-21c1-4f7f-8b04-e0ddd67920e7"
+                }
+              ],
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-b619031e-139a-4c20-bdb2-af6dfff40f64"
+            }
+          ],
+          "id": "6d4ea042-52a2-4b9d-a27b-38ef22545f95",
+          "createdAt": "2026-06-05T15:04:34.000Z",
+          "updatedAt": "2026-06-05T15:04:34.000Z",
+          "uid": "35240-6d4ea042-52a2-4b9d-a27b-38ef22545f95"
+        },
+        {
+          "name": "Amazon Lake Formation Register Resource",
+          "id": "2e079595-c60e-4760-92f5-7fc4fcaeb817",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/resources",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "resources"
+              ]
+            },
+            "description": "Registers an Amazon S3 path as a data lake location managed by Lake Formation."
+          },
+          "response": [
+            {
+              "id": "f6a116ca-e629-41f0-950d-dd6095ed7635",
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/resources",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "resources"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-f6a116ca-e629-41f0-950d-dd6095ed7635"
+            },
+            {
+              "id": "512ca0a8-d6c1-4a12-8aa9-57e5de77ac62",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/resources",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "resources"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-512ca0a8-d6c1-4a12-8aa9-57e5de77ac62"
+            },
+            {
+              "id": "6c51edb4-7508-4d90-9d67-c15e4bd91c92",
+              "name": "Access denied",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/resources",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "resources"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-6c51edb4-7508-4d90-9d67-c15e4bd91c92"
+            },
+            {
+              "id": "d642524a-2b97-45b4-9090-d2cdf06987ae",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/resources",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "resources"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-d642524a-2b97-45b4-9090-d2cdf06987ae"
+            }
+          ],
+          "createdAt": "2026-06-05T15:04:34.000Z",
+          "updatedAt": "2026-06-05T15:04:34.000Z",
+          "uid": "35240-2e079595-c60e-4760-92f5-7fc4fcaeb817"
+        },
+        {
+          "name": "Amazon Lake Formation List Resources",
+          "id": "b9a63299-c476-49a5-8f9a-90d0524e0f3e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/resources",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "resources"
+              ]
+            },
+            "description": "Lists the resources registered as managed by Lake Formation."
+          },
+          "response": [
+            {
+              "id": "2e40d895-fd8f-4f96-ae35-1780cd2387b6",
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/resources",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "resources"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-2e40d895-fd8f-4f96-ae35-1780cd2387b6"
+            },
+            {
+              "id": "bf3e273b-1bbe-4e71-b0ef-2523ecd5ab0f",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/resources",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "resources"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-bf3e273b-1bbe-4e71-b0ef-2523ecd5ab0f"
+            },
+            {
+              "id": "562f005e-f8cd-4321-911a-15d6558486c5",
+              "name": "Access denied",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/resources",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "resources"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-562f005e-f8cd-4321-911a-15d6558486c5"
+            },
+            {
+              "id": "43e76b20-6409-4e64-a2ce-f84afef29fa2",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/resources",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "resources"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-43e76b20-6409-4e64-a2ce-f84afef29fa2"
+            }
+          ],
+          "createdAt": "2026-06-05T15:04:34.000Z",
+          "updatedAt": "2026-06-05T15:04:34.000Z",
+          "uid": "35240-b9a63299-c476-49a5-8f9a-90d0524e0f3e"
+        }
+      ],
+      "id": "804c0b89-8abe-4a26-a180-9a19062a158a",
+      "createdAt": "2026-06-05T15:04:34.000Z",
+      "updatedAt": "2026-06-05T15:04:34.000Z",
+      "uid": "35240-804c0b89-8abe-4a26-a180-9a19062a158a"
+    },
+    {
+      "name": "permissions",
+      "item": [
+        {
+          "name": "Amazon Lake Formation Grant Permissions",
+          "id": "578242ad-3f2a-4fc0-a746-3f77b03235fd",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/permissions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "permissions"
+              ]
+            },
+            "description": "Grants permissions to the principal to access metadata in the Data Catalog and data organized in underlying data storage such as Amazon S3."
+          },
+          "response": [
+            {
+              "id": "16264aa2-4da4-41a9-a87b-cad059f46a14",
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/permissions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "permissions"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-16264aa2-4da4-41a9-a87b-cad059f46a14"
+            },
+            {
+              "id": "01a7687e-1305-4935-b318-32184a4c68ff",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/permissions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "permissions"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-01a7687e-1305-4935-b318-32184a4c68ff"
+            },
+            {
+              "id": "a4db15b2-789c-451f-9148-bf6ff9595839",
+              "name": "Access denied",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/permissions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "permissions"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-a4db15b2-789c-451f-9148-bf6ff9595839"
+            },
+            {
+              "id": "cb8df60f-ad3d-493b-b723-e5d6e6410aca",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/permissions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "permissions"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-cb8df60f-ad3d-493b-b723-e5d6e6410aca"
+            }
+          ],
+          "createdAt": "2026-06-05T15:04:34.000Z",
+          "updatedAt": "2026-06-05T15:04:34.000Z",
+          "uid": "35240-578242ad-3f2a-4fc0-a746-3f77b03235fd"
+        },
+        {
+          "name": "Amazon Lake Formation Revoke Permissions",
+          "id": "ee5155b8-4242-4e68-942d-c65d25ae22da",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/permissions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "permissions"
+              ]
+            },
+            "description": "Revokes permissions to the principal to access metadata in the Data Catalog."
+          },
+          "response": [
+            {
+              "id": "44670299-e79e-4822-a17f-d6d4e629c979",
+              "name": "Success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/permissions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "permissions"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-44670299-e79e-4822-a17f-d6d4e629c979"
+            },
+            {
+              "id": "3a6d94b0-3c0f-4b55-96be-07128f89b07b",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/permissions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "permissions"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-3a6d94b0-3c0f-4b55-96be-07128f89b07b"
+            },
+            {
+              "id": "6cfa9b29-ebd0-45e5-bc44-800aa0200520",
+              "name": "Access denied",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/permissions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "permissions"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-6cfa9b29-ebd0-45e5-bc44-800aa0200520"
+            },
+            {
+              "id": "0b7a0440-da1c-4c88-9764-c28485de3e45",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/permissions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "permissions"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-0b7a0440-da1c-4c88-9764-c28485de3e45"
+            }
+          ],
+          "createdAt": "2026-06-05T15:04:34.000Z",
+          "updatedAt": "2026-06-05T15:04:34.000Z",
+          "uid": "35240-ee5155b8-4242-4e68-942d-c65d25ae22da"
+        },
+        {
+          "name": "Amazon Lake Formation List Permissions",
+          "id": "8e425836-4d7c-42c2-aba4-60bbe5d31c1a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/permissions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "permissions"
+              ]
+            },
+            "description": "Returns a list of the principal permissions on the resource."
+          },
+          "response": [
+            {
+              "id": "a72c9779-02e4-420a-9fa5-8085ec2c26b9",
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/permissions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "permissions"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-a72c9779-02e4-420a-9fa5-8085ec2c26b9"
+            },
+            {
+              "id": "a08c87b4-5217-4cd0-a4db-6952ba38d598",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/permissions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "permissions"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-a08c87b4-5217-4cd0-a4db-6952ba38d598"
+            },
+            {
+              "id": "24aa1439-eccb-45ca-b02e-4ddbcc97b4af",
+              "name": "Access denied",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/permissions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "permissions"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-24aa1439-eccb-45ca-b02e-4ddbcc97b4af"
+            },
+            {
+              "id": "9dbee552-55ad-45e7-9070-eb9494ffbf20",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/permissions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "permissions"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:04:34.000Z",
+              "updatedAt": "2026-06-05T15:04:34.000Z",
+              "uid": "35240-9dbee552-55ad-45e7-9070-eb9494ffbf20"
+            }
+          ],
+          "createdAt": "2026-06-05T15:04:34.000Z",
+          "updatedAt": "2026-06-05T15:04:34.000Z",
+          "uid": "35240-8e425836-4d7c-42c2-aba4-60bbe5d31c1a"
+        }
+      ],
+      "id": "a969cae8-530b-4927-80ea-988cc5d5dc10",
+      "createdAt": "2026-06-05T15:04:34.000Z",
+      "updatedAt": "2026-06-05T15:04:34.000Z",
+      "uid": "35240-a969cae8-530b-4927-80ea-988cc5d5dc10"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://lakeformation.us-east-1.amazonaws.com"
+    }
+  ]
+}
