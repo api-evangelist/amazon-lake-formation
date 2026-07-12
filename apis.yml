@@ -56,6 +56,14 @@ apis:
       - type: JSONSchema
         url: json-schema/amazon-lake-formation-permission-schema.json
 common:
+  - type: TrustCenter
+    url: security/amazon-lake-formation-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/amazon-lake-formation-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/amazon-lake-formation-domain-security.yml
+  - type: Authentication
+    url: authentication/amazon-lake-formation-authentication.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/amazon-lake-formation/overview
   - type: Arazzo
