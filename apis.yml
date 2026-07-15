@@ -56,6 +56,8 @@ apis:
       - type: JSONSchema
         url: json-schema/amazon-lake-formation-permission-schema.json
 common:
+  - type: AgenticAccess
+    url: agentic-access/amazon-lake-formation-agentic-access.yml
   - type: TrustCenter
     url: security/amazon-lake-formation-trust-center.yml
   - type: VulnerabilityDisclosure
