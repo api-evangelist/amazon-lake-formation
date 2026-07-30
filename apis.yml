@@ -7,6 +7,19 @@ description: >-
   governance and security for data stored in Amazon S3 and other AWS data stores with fine-grained access control.
 url: https://aws.amazon.com/lake-formation/
 type: Index
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
 tags:
   - Access Control
@@ -18,43 +31,34 @@ tags:
 created: '2024-01-15'
 modified: '2026-05-19'
 apis:
-  - name: Amazon Lake Formation API
-    description: >-
-      The AWS Lake Formation API provides programmatic access to create and manage data lakes, configure data
-      permissions and access controls, register data sources, and manage data catalog resources for centralized data
-      governance.
-    image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-    humanURL: https://aws.amazon.com/lake-formation/
-    baseURL: https://lakeformation.amazonaws.com
-    tags:
-      - Access Control
-      - Data Governance
-      - Data Lake
-    properties:
-      - type: Documentation
-        url: https://docs.aws.amazon.com/lake-formation/latest/dg/what-is-lake-formation.html
-      - type: OpenAPI
-        url: https://api.apis.guru/v2/specs/amazonaws.com/lakeformation/2017-03-31/openapi.yaml
-      - type: Pricing
-        url: https://aws.amazon.com/lake-formation/pricing/
-      - type: GettingStarted
-        url: https://aws.amazon.com/lake-formation/getting-started/
-      - type: FAQ
-        url: https://aws.amazon.com/lake-formation/faqs/
-      - type: Features
-        url: https://aws.amazon.com/lake-formation/features/
-      - type: Documentation
-        url: https://docs.aws.amazon.com/lake-formation/latest/dg/what-is-lake-formation.html
-      - type: APIReference
-        url: https://docs.aws.amazon.com/lake-formation/latest/APIReference/Welcome.html
-      - type: OpenAPI
-        url: openapi/amazon-lake-formation-openapi.yml
-      - type: JSONLD
-        url: json-ld/amazon-lake-formation-context.jsonld
-      - type: JSONSchema
-        url: json-schema/amazon-lake-formation-resource-schema.json
-      - type: JSONSchema
-        url: json-schema/amazon-lake-formation-permission-schema.json
+- aid: amazon-lake-formation:amazon-lake-formation-resources-api
+  name: Amazon Lake Formation Resources API
+  description: Data lake resource management
+  humanURL: https://aws.amazon.com/lake-formation/
+  baseURL: https://lakeformation.amazonaws.com
+  tags:
+  - Resources
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-lake-formation-resources-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lake-formation/latest/dg/what-is-lake-formation.html
+  - type: Pricing
+    url: https://aws.amazon.com/lake-formation/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lake-formation/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/lake-formation/faqs/
+  - type: Features
+    url: https://aws.amazon.com/lake-formation/features/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lake-formation/latest/APIReference/Welcome.html
+  - type: JSONLD
+    url: json-ld/amazon-lake-formation-context.jsonld
+  - type: JSONSchema
+    url: json-schema/amazon-lake-formation-resource-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-lake-formation-permission-schema.json
 common:
   - type: AgenticAccess
     url: agentic-access/amazon-lake-formation-agentic-access.yml
