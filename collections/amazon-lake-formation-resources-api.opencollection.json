@@ -1,0 +1,119 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Lake Formation Resources API",
+    "version": "2024-01-01"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Resources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Lake Formation List Resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lakeformation.us-east-1.amazonaws.com/resources"
+          },
+          "docs": "Lists the resources registered as managed by Lake Formation."
+        },
+        {
+          "info": {
+            "name": "Amazon Lake Formation Register Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lakeformation.us-east-1.amazonaws.com/resources"
+          },
+          "docs": "Registers an Amazon S3 path as a data lake location managed by Lake Formation."
+        },
+        {
+          "info": {
+            "name": "Amazon Lake Formation Describe Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lakeformation.us-east-1.amazonaws.com/resources/:resourceArn",
+            "params": [
+              {
+                "name": "resourceArn",
+                "value": "",
+                "type": "path",
+                "description": "The resource ARN."
+              }
+            ]
+          },
+          "docs": "Retrieves the current data access role for the given resource registered in Lake Formation."
+        },
+        {
+          "info": {
+            "name": "Amazon Lake Formation Deregister Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lakeformation.us-east-1.amazonaws.com/resources/:resourceArn",
+            "params": [
+              {
+                "name": "resourceArn",
+                "value": "",
+                "type": "path",
+                "description": "The resource ARN."
+              }
+            ]
+          },
+          "docs": "Deregisters the resource as managed by the Data Catalog."
+        },
+        {
+          "info": {
+            "name": "Amazon Lake Formation List Permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lakeformation.us-east-1.amazonaws.com/permissions"
+          },
+          "docs": "Returns a list of the principal permissions on the resource."
+        },
+        {
+          "info": {
+            "name": "Amazon Lake Formation Grant Permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lakeformation.us-east-1.amazonaws.com/permissions"
+          },
+          "docs": "Grants permissions to the principal to access metadata in the Data Catalog and data organized in underlying data storage such as Amazon S3."
+        },
+        {
+          "info": {
+            "name": "Amazon Lake Formation Revoke Permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lakeformation.us-east-1.amazonaws.com/permissions"
+          },
+          "docs": "Revokes permissions to the principal to access metadata in the Data Catalog."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
