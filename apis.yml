@@ -1,4 +1,5 @@
 name: Amazon Lake Formation
+specificationVersion: '0.23'
 segments:
   - Data Lakes
   - Analytics
