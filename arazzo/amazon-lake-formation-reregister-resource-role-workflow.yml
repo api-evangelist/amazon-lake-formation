@@ -13,8 +13,8 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: lakeFormationApi
-  url: ../openapi/amazon-lake-formation-openapi.yml
+- name: resourcesApi
+  url: ../openapi/amazon-lake-formation-resources-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: reregister-resource-role

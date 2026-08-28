@@ -12,8 +12,8 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: lakeFormationApi
-  url: ../openapi/amazon-lake-formation-openapi.yml
+- name: resourcesApi
+  url: ../openapi/amazon-lake-formation-resources-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: migrate-principal-permissions
