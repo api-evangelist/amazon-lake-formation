@@ -15,9 +15,9 @@ specificationVersion: '0.23'
 segments:
 - Data Lakes
 - Analytics
-description: AWS Lake Formation is a service that makes it easy to set up a secure data lake in days,
-  providing centralized governance and security for data stored in Amazon S3 and other AWS data stores
-  with fine-grained access control.
+description: AWS Lake Formation is a service that makes it easy to set up a secure data lake in days, providing
+  centralized governance and security for data stored in Amazon S3 and other AWS data stores with fine-grained access
+  control.
 url: https://aws.amazon.com/lake-formation/
 type: Index
 accessModel:
@@ -143,8 +143,7 @@ common:
   - name: Fine-Grained Access Control
     description: Grant table, column, row, and cell-level permissions to data in your data lake.
   - name: Centralized Governance
-    description: Centrally define and manage security, governance, and auditing policies across the data
-      lake.
+    description: Centrally define and manage security, governance, and auditing policies across the data lake.
   - name: Data Catalog Integration
     description: Integrates with AWS Glue Data Catalog to discover, catalog, and share metadata.
   - name: Cross-Account Data Sharing
@@ -154,8 +153,7 @@ common:
 - type: UseCases
   data:
   - name: Data Lake Security
-    description: Implement fine-grained access control for data stored in S3 with row and column-level
-      security.
+    description: Implement fine-grained access control for data stored in S3 with row and column-level security.
   - name: Self-Service Analytics
     description: Enable business users to discover and access approved data without manual provisioning.
   - name: Cross-Account Data Sharing
@@ -176,6 +174,8 @@ common:
   url: vocabulary/amazon-lake-formation-vocabulary.yaml
 - type: Integrations
   url: https://aws.amazon.com/marketplace
+- type: Portal
+  url: https://aws.amazon.com/
 integrations:
 - name: Sign in
 - name: Agent Mode
